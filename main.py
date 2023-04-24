@@ -1,8 +1,8 @@
 # importa la libreria
 import os #se indica el sistema operativo a utilizar que es windows
-from tkinter import StringVar
 from ClaseProfesor import Profesor
 from ClaseEstudiante import Estudiante
+from tkinter import StringVar
 # ########Tkinter debemos primero importar la librería#############
 # Se importa tkinter y se renombra a tk para que sea más fácil###########
 import tkinter as tk
@@ -39,7 +39,7 @@ hventana = 600
 pwidth = round(wtotal / 2 - wventana / 2)
 pheight = round(htotal / 2 - hventana / 2)
 app.geometry(str(wventana) + "x" + str(hventana) + "+" + str(pwidth) + "+" + str(pheight))  # dimensiones de la ventana
-app.title("Sistema de Matrícula School Las Brisas de la Gloria.")  # Titulo ventana
+app.title("Sistema de Matrícula ")  # Titulo ventana
 app.configure(background="light blue")
 ##############Clase sigleton#######
 # clase singleton para el nombre del negocio se usa una unica vez
@@ -50,17 +50,13 @@ class NombreCentroEducativo(object):
 
         def __str__(self):
             return self.nombre
-
     __instance = None
-
     def __new__(cls):
         if not cls.__instance:
             cls.__instance = cls.__NombreCentroEducativo()
         return cls.__instance
-
     def __getattr__(self, nombre):
         return getattr(self.__instance, nombre)
-
     def __setattr__(self, nombre, valor):
         return setattr(self.__instance, nombre, valor)
  # función limpia consola
@@ -70,6 +66,7 @@ def Clear():
 centro_educativo_singleton = NombreCentroEducativo()  # instancia del singleton
 centro_educativo = NombreCentroEducativo() # instancia del centro educativo
 centro_educativo.nombre = "School Las Brisas de la Gloria."  # nombre del centro
+Clear()
 ###########Funciones independientes################
 def CargaDatosProfesores():
     # Uso de diccionario y tuplas para cargar datos de los profesores desde archivo txt
@@ -1239,9 +1236,9 @@ def MostrarMenuMatricula():
         x=190, y=100,
     )
 
-tk.Label(  # el label etiqueta dónde podemos mostrar algún texto estático.
+tk.Label(  # el label etiqueta dónde podemos mostrar algún texto estático, ene ste caso se llama la instancia del sigleton del nombre.
     app,
-    text="Bienvenidos estimados usuarios al Sistema de Matrícula del " + centro_educativo.nombre ,
+    text="Bienvenidos estimados usuarios al Sistema de Matrícula del " + centro_educativo.nombre,
     fg="white",  ## se le asigna color a las letars
     bg="blue",  # # se le asigna color al fondo
     font=("Verdana", 14),
@@ -1249,11 +1246,9 @@ tk.Label(  # el label etiqueta dónde podemos mostrar algún texto estático.
     fill=tk.BOTH,
     expand=False,
 )
-
 #  Carga el diccionario global de profesores con los datos desde el archivo txt
 profes = CargaDatosProfesores()
 estudiantes = CargaDatosEstudiantes()
-
 # ###Creación de los Botones
 # Mensaje de Bienvenida
 # se creo el menu para que el cliente presione la opción que desee
