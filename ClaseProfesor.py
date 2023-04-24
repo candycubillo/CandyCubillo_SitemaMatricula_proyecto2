@@ -25,4 +25,5 @@ class Profesor(ProfeEstudiante):
         self.cedula = cedula  # CEDULA DEL PROFESOR
         self.nombre = nombre  # NOMBRE DEL PROFESOR
         self.fechaNacimiento = fechaNacimiento  # FECHA DE NACIMIENTO DEL PROFESOR
+
         self.nCelular = nCelular  # NUMERO DE CELULAR DEL PROFESOR

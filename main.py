@@ -44,28 +44,32 @@ app.configure(background="light blue")
 ##############Clase sigleton#######
 # clase singleton para el nombre del negocio se usa una unica vez
 class NombreCentroEducativo(object):
-    class __NombreCentroEducativo:  # se crea la clase nombre negocio y solo va a tener una unica instancia en el programa
-        # constructor de la clase
+    class __NombreCentroEducativo:
         def __init__(self):
-            self.nombre = None  # variable nombre vacia
+            self.nombre = None
 
-        def __str__(self):  # el str para que está siempre en la misma posición de memoria
-            return self.nombre  # regresa lo almacenado en nombre
-    instance = None  # no tiene valor
-    def __new__(cls):  # se crea la instancia
-        if not NombreCentroEducativo.instance:  # sino recibe parametro
-            NombreCentroEducativo.instance = NombreCentroEducativo.__NombreCentroEducativo()  # la variable NombreCentroEducativo. instancia va aser igual al NombreCentroEducativo
-        return NombreCentroEducativo.instance  # retorna el nombre con la instancia
+        def __str__(self):
+            return self.nombre
 
-    def __getattr__(self, nombre):  # los getters  que llaman a la instancia.
-        return getattr(self.instance, nombre)  # devuelve lo almacenado en la instancia
+    __instance = None
 
-    def __setattr__(self, nombre, valor):  # los __setattr__ que llaman a la instancia.
-        return setattr(self.instance, nombre, valor)  ##devuelve lo almacenado en la instancia
+    def __new__(cls):
+        if not cls.__instance:
+            cls.__instance = cls.__NombreCentroEducativo()
+        return cls.__instance
+
+    def __getattr__(self, nombre):
+        return getattr(self.__instance, nombre)
+
+    def __setattr__(self, nombre, valor):
+        return setattr(self.__instance, nombre, valor)
  # función limpia consola
 def Clear():
-    os.system('cls' if os.name == 'nt' else 'clear')  # indica que se limpia pantalla en windows
-
+    os.system('cls' if os.name == 'nt' else 'clear')  # indica que se limpia pantalla en windows o en ubunto
+    #############instancia sigleton para el nombre del colegio###
+centro_educativo_singleton = NombreCentroEducativo()  # instancia del singleton
+centro_educativo = NombreCentroEducativo() # instancia del centro educativo
+centro_educativo.nombre = "School Las Brisas de la Gloria."  # nombre del centro
 ###########Funciones independientes################
 def CargaDatosProfesores():
     # Uso de diccionario y tuplas para cargar datos de los profesores desde archivo txt
@@ -285,7 +289,6 @@ def MantenimientoProfesores():
 
     # Uso Toplevel para crear una nueva ventana
     newWindowM = tk.Toplevel()
-
     newWindowM.title("Catálogo de Profesores")# titulo de la ventana
     #  Obtenemos el largo y  ancho de la pantalla
     wtotalmant = newWindowM.winfo_screenwidth()
@@ -301,6 +304,7 @@ def MantenimientoProfesores():
     newWindowM.transient(app)
     iconoM = tk.PhotoImage(file="tesis.png")
     newWindowM.iconphoto(True, iconoM)
+#Creación de etiquetas y botones para ingreso datos profesor
     # para etiqueta cédula.
     tk.Label(
         newWindowM,
@@ -468,7 +472,6 @@ def MantenimientoEstudiantes():
             messagebox.showinfo(parent=newWindowE,
                                 message="Archivo estudiantes.txt actualizado con éxito en la ruta " + ruta,
                                 title="Información")
-
     #  Cargar cajas de texto
     def LlenarCajasTexto(e):
         booEncontro = False
@@ -501,7 +504,6 @@ def MantenimientoEstudiantes():
                         Celular.set(estudiantes["Celular" + subcadena])
                         booEncontro = True
                         break
-
                 if booEncontro:
                     messagebox.showwarning(parent=newWindowE, message="Estudiante ya está registrado", title="Alerta")
                 else:
@@ -592,7 +594,6 @@ def MantenimientoEstudiantes():
     #######
     # Función mostrar Datos del Estudiante
     def MostrarDatosEstudiante():
-        #
         from tkinter import messagebox, Text
         booEncontro = False
         resp = messagebox.askyesno(parent=newWindowE, message="Desea Mostrar el registro", title="Mostrar")
@@ -861,7 +862,6 @@ def MostrarMenuMatricula():
     canMesesPagados = 0
     canMesesPorPagar = 0
     mesesPagar = []
-
     def CargaMesesPagados():
         # Uso de matriz para cargar meses pagados de un estudiante desde archivo txt
         tempMesesPagados = [[], [], []]
@@ -908,8 +908,6 @@ def MostrarMenuMatricula():
             return "Octubre"
         elif mes == "11":
             return "Noviembre"
-        else:
-            return "Diciembre"
 
     #  Cargar cajas de texto
     def BuscarEstudiante(e):
@@ -922,7 +920,7 @@ def MostrarMenuMatricula():
                 Nombre.set(estudiantes["Nombre" + subcadena])
                 mesesPagados = CargaMesesPagados()
                 canMesesPagados = mesesPagados[0].__len__()
-                canMesesPorPagar = 12 - int(canMesesPagados)
+                canMesesPorPagar = 11 - int(canMesesPagados)
                 canmxpagar.set(int(canMesesPorPagar))
                 # para etiqueta meses pagados.
                 tk.Label(
@@ -959,7 +957,7 @@ def MostrarMenuMatricula():
                 #  Lista de meses sin pagar
                 listboxporpagar = tk.Listbox(nuevaVentana, selectmode=tk.EXTENDED, width=25)
                 cmesesxpagar = 0
-                for k in range(canMesesPagados + 1, 13):
+                for k in range(canMesesPagados + 1, 12):
                     listboxporpagar.insert(cmesesxpagar, ConvertirMes(str(k)))
                     cmesesxpagar = cmesesxpagar + 1
                 listboxporpagar.place(
@@ -997,13 +995,10 @@ def MostrarMenuMatricula():
                 elif mesesPagados >= 4 and mesesPagados <= 8:
                     valorSinDescuento = valorMensualidad * mesesPagados
                     valorDescuento = valorSinDescuento * (5 / 100)
-
                     valorTotal = valorSinDescuento - valorDescuento
                     msg = "Valor total a pagar: " + str(valorTotal)
                     montosdescuento.set(valorSinDescuento)
                     descuento.set(valorDescuento)
-
-
                 elif mesesPagados >= 9 and mesesPagados <= 12:
                     valorSinDescuento = valorMensualidad * mesesPagados
                     valorDescuento = valorSinDescuento * (10 / 100)
@@ -1078,7 +1073,7 @@ def MostrarMenuMatricula():
     )
     # Creación de mensaje y se añade a la ventana de matricula
     l2 = tk.Label(nuevaVentana,
-                  text="Recuerde que la mensualidad es de 12 meses y hay descuentos si paga por adelantado", fg="white",
+                  text="Recuerde que la mensualidad es de 11 meses y hay descuentos si paga por adelantado", fg="white",
                   # Foreground
                   bg="blue",  # Background
                   font=("Verdana", 7),
@@ -1125,6 +1120,13 @@ def MostrarMenuMatricula():
                                  anchor="center", )
     laTotalMatriculas.place(
         x=175, y=25
+    )
+    tk.Button(nuevaVentana, text="Procesar", font=("Arial", 16),  #se crea bóton procesar cambia la letra y el tamaño
+              bg="lightblue",  # cambia color de linea de ventanas
+              fg="white",  # color texto,
+              command=nuevaVentana.withdraw,
+              relief="flat").place(
+        x=230, y=400
     )
     ########################################
     """
@@ -1232,18 +1234,14 @@ def MostrarMenuMatricula():
         relief="sunken", width=50,
         justify="center", state="readonly",
         textvariable=Nombre
+
     ).place(
         x=190, y=100,
     )
-#  Se construye la variable singleton a partir del constructor de la clase
-NombreCentroEducativo = NombreCentroEducativo()  # instancia del sigleton
-#  Se asigna el nombre del centro educativo
-NombreCentroEducativo.nombre = "School Las Brisas de la Gloria."  # nombre del centro
-Clear()
 
 tk.Label(  # el label etiqueta dónde podemos mostrar algún texto estático.
     app,
-    text="Bienvenidos estimados usuarios al Sistema de Matrícula del " + NombreCentroEducativo.nombre,
+    text="Bienvenidos estimados usuarios al Sistema de Matrícula del " + centro_educativo.nombre ,
     fg="white",  ## se le asigna color a las letars
     bg="blue",  # # se le asigna color al fondo
     font=("Verdana", 14),
@@ -1251,6 +1249,7 @@ tk.Label(  # el label etiqueta dónde podemos mostrar algún texto estático.
     fill=tk.BOTH,
     expand=False,
 )
+
 #  Carga el diccionario global de profesores con los datos desde el archivo txt
 profes = CargaDatosProfesores()
 estudiantes = CargaDatosEstudiantes()
@@ -1268,6 +1267,5 @@ opcion = tk.OptionMenu(app, obMenu, *MenuOb, command=OptionMenu_Select)
 opcion.config(bg="blue", foreground="white",
               font=('Arial', 12))  # configuración que se visualizara en la ventana, con color, letra
 opcion.pack(pady=50)  # especifica las posiciones de los elementos
-
 app.mainloop() #Se inicia el programa en la ventana principal
 
