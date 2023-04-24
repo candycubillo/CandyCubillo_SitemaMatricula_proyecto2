@@ -19,7 +19,6 @@ class ProfeEstudiante(ABC):
          pass
 #SE CREA CLASE PROFESOR que es una clase hija que hereda los metodos de la clase Profestudiante
 class Profesor(ProfeEstudiante):
-
     # constructor de la clase
     def _init_(self, cedula, nombre, fechaNacimiento, nCelular):  # ATRIBUTOS DE LA CLASE
         self.cedula = cedula  # CEDULA DEL PROFESOR
