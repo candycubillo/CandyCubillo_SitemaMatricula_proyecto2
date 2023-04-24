@@ -1118,7 +1118,7 @@ def MostrarMenuMatricula():
     laTotalMatriculas.place(
         x=175, y=25
     )
-    tk.Button(nuevaVentana, text="Procesar", font=("Arial", 16),  #se crea bóton procesar cambia la letra y el tamaño
+    tk.Button(nuevaVentana, text="Procesar Pago", font=("Arial", 16),  #se crea bóton procesar cambia la letra y el tamaño
               bg="lightblue",  # cambia color de linea de ventanas
               fg="white",  # color texto,
               command=nuevaVentana.withdraw,
