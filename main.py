@@ -3,6 +3,7 @@ import os #se indica el sistema operativo a utilizar que es windows
 from ClaseProfesor import Profesor
 from ClaseEstudiante import Estudiante
 from tkinter import StringVar
+
 # ########Tkinter debemos primero importar la librería#############
 # Se importa tkinter y se renombra a tk para que sea más fácil###########
 import tkinter as tk
@@ -51,22 +52,22 @@ class NombreCentroEducativo(object):
         def __str__(self):
             return self.nombre
     __instance = None
-    def __new__(cls):
+    def __new__(cls): # La función comprueba si ya existe una instancia de la clase interna
         if not cls.__instance:
             cls.__instance = cls.__NombreCentroEducativo()
         return cls.__instance
-    def __getattr__(self, nombre):
-        return getattr(self.__instance, nombre)
-    def __setattr__(self, nombre, valor):
+    def __getattr__(self, nombre):#se ejecuta cuando se accede a un atributo que no existe en una instancia de la clase
+        return getattr(self.__instance, nombre) #retorna
+    def __setattr__(self, nombre, valor): #se ejecuta cuando se establece un valor para un atributo en una instancia de la clase
         return setattr(self.__instance, nombre, valor)
  # función limpia consola
 def Clear():
     os.system('cls' if os.name == 'nt' else 'clear')  # indica que se limpia pantalla en windows o en ubunto
     #############instancia sigleton para el nombre del colegio###
 centro_educativo_singleton = NombreCentroEducativo()  # instancia del singleton
-centro_educativo = NombreCentroEducativo() # instancia del centro educativo
+centro_educativo = NombreCentroEducativo()  # instancia del centro educativo
 centro_educativo.nombre = "School Las Brisas de la Gloria."  # nombre del centro
-Clear()
+Clear() #limpia consola
 ###########Funciones independientes################
 def CargaDatosProfesores():
     # Uso de diccionario y tuplas para cargar datos de los profesores desde archivo txt
@@ -306,8 +307,8 @@ def MantenimientoProfesores():
     tk.Label(
         newWindowM,
         text="Cédula",
-        fg="white",  # Foreground
-        bg="blue",  # Background
+        fg="white",   # se le asigna color texto
+        bg="blue",   # se le asigna color fondo
         font=("Verdana", 14),
         anchor="center",
     ).pack(  # especifica las posiciones de los elementos
@@ -320,29 +321,29 @@ def MantenimientoProfesores():
     # Se digita el # de cédula
     tk.Entry(
         newWindowM,
-        bg="yellow",  # asigna color a la ventana
-        fg="blue",  # asigna color a la ventana
+        bg="yellow",  #  # se le asigna color fondo
+        fg="blue",  #  # se le asigna color texto
         relief="sunken", validatecommand=vcmd,
         justify="center",
         textvariable=CedulaProf
     ).pack()
-    # para etiqueta nombre del profesor.
+    # para etiqueta nombre del profesor en ventana.
     tk.Label(
-        newWindowM,
-        text="Nombre",
-        fg="white",  # Foreground
-        bg="blue",  # Background
+        newWindowM,  #se asigna la ventana donde aparecerá
+        text="Nombre", #el texto que lleva etiqueta
+        fg="white",  #  # se le asigna color texto
+        bg="blue",  #  # se le asigna color fondo
         font=("Verdana", 14),
-        anchor="center",
+        anchor="center", # el texto centrado
     ).pack(  # especifica las posiciones de los elementos
         fill=tk.BOTH,
         expand=False,
     )
     # Se digita el nombre del profesor
     tk.Entry(
-        newWindowM,
-        bg="yellow",  # asigna color a la ventana
-        fg="blue",  # asigna color a la ventana
+        newWindowM, # indica la ventana donde va adigitar
+        bg="yellow",  # asigna color al fondo
+        fg="blue",  #  # se le asigna color texto
         relief="sunken",
         justify="center",
         textvariable=Nombre
@@ -353,9 +354,9 @@ def MantenimientoProfesores():
     # para etiqueta fecha de nacimiento del profesor.
     tk.Label(
         newWindowM,
-        text="Fecha de nacimiento",
-        fg="white",  # Foreground
-        bg="blue",  # Background
+        text="Fecha de nacimiento", #la etiqueta va  a aprecer con fecha nacimiento
+        fg="white",  # se le asigna color texto
+        bg="blue",  # se le asigna color  al fondo
         font=("Verdana", 14),
         anchor="center",
     ).pack(  # especifica las posiciones de los elementos
@@ -365,8 +366,8 @@ def MantenimientoProfesores():
     # Se digita la fecha de nacimiento del profesor
     tk.Entry(
         newWindowM,
-        bg="yellow",  # asigna color a la ventana
-        fg="blue",  # asigna color a la ventana
+        bg="yellow",   # se le asigna color fondo
+        fg="blue",   # se le asigna color texto
         relief="sunken",
         justify="center",
         textvariable=FechaN
@@ -375,8 +376,8 @@ def MantenimientoProfesores():
     tk.Label(
         newWindowM,
         text="# Celular",
-        fg="white",  # Foreground
-        bg="blue",  # Background
+        fg="white",  # # se le asigna color texto
+        bg="blue",  #  # se le asigna color fondo
         font=("Verdana", 14),
         anchor="center",
     ).pack(  # especifica las posiciones de los elementos
@@ -386,8 +387,8 @@ def MantenimientoProfesores():
     # Se digita el número de celular del profesor
     tk.Entry(
         newWindowM,
-        bg="yellow",  # asigna color a la ventana
-        fg="blue",  # asigna color a la ventana
+        bg="yellow",  #  # se le asigna color fondo
+        fg="blue",  #  # se le asigna color texto
         relief="sunken",
         justify="center",
         textvariable=Celular
@@ -397,7 +398,7 @@ def MantenimientoProfesores():
         newWindowM,
         text="Guardar",
         font=("Arial", 16),  # cambia la letra y el tamaño
-        bg="lightblue",  # cambia color de linea de ventanas
+        bg="lightblue",  #  # se le asigna color fondo
         fg="white",  # color texto
         command=GuardarDatosProfesor,
         relief="flat",
@@ -411,7 +412,7 @@ def MantenimientoProfesores():
         newWindowM,
         text="Eliminar",
         font=("Arial", 16),  # cambia la letra y el tamaño
-        bg="lightblue",  # cambia color de linea de ventanas
+        bg="lightblue",  #  # se le asigna color fondo
         fg="white",  # color texto
         command=EliminarDatosProfesor,
         relief="flat",
@@ -425,7 +426,7 @@ def MantenimientoProfesores():
         newWindowM,
         text="Actualizar",
         font=("Arial", 16),  # cambia la letra y el tamaño
-        bg="lightblue",  # cambia color de linea de ventanas
+        bg="lightblue",  # cambia color al fondo
         fg="white",  # color texto
         command=ActualizarDatosProfesor,
         relief="flat",
@@ -439,7 +440,7 @@ def MantenimientoProfesores():
         newWindowM,
         text="Salir",
         font=("Arial", 16),  # cambia la letra y el tamaño
-        bg="lightblue",  # cambia color de linea de ventanas
+        bg="lightblue",  # cambia color de fondo
         fg="white",  # color texto
         command=SalirVentanaProfesores,
         relief="flat",
@@ -644,8 +645,8 @@ def MantenimientoEstudiantes():
     tk.Label(
         newWindowE,
         text="Cédula",
-        fg="white",  # Foreground
-        bg="blue",  # Background
+        fg="white",  #  # se le asigna color texto
+        bg="blue",  #  # se le asigna color fondo
         font=("Verdana", 14),
         anchor="center",
     ).pack(  # especifica las posiciones de los elementos
@@ -658,8 +659,8 @@ def MantenimientoEstudiantes():
     # Se digita el # de cédula
     tk.Entry(
         newWindowE,
-        bg="yellow",  # asigna color a la ventana
-        fg="blue",  # asigna color a la ventana
+        bg="yellow",  # asigna color al fondo
+        fg="blue",  #  # se le asigna color texto
         relief="sunken", validatecommand=vcmd,
         justify="center",
         textvariable=CedulaEst
@@ -668,8 +669,8 @@ def MantenimientoEstudiantes():
     tk.Label(
         newWindowE,
         text="Nombre",
-        fg="white",  # Foreground
-        bg="blue",  # Background
+        fg="white",  #  # se le asigna color texto
+        bg="blue",  #  # se le asigna color fondo
         font=("Verdana", 14),
         anchor="center",
     ).pack(  # especifica las posiciones de los elementos
@@ -679,8 +680,8 @@ def MantenimientoEstudiantes():
     # Se digita el nombre del estudiante
     tk.Entry(
         newWindowE,
-        bg="yellow",  # asigna color a la ventana
-        fg="blue",  # asigna color a la ventana
+        bg="yellow",  # asigna color al fondo
+        fg="blue",  # # se le asigna color texto
         relief="sunken",
         justify="center",
         textvariable=Nombre
@@ -692,8 +693,8 @@ def MantenimientoEstudiantes():
     tk.Label(
         newWindowE,
         text="Fecha de nacimiento",
-        fg="white",  # Foreground
-        bg="blue",  # Background
+        fg="white",  #  # se le asigna color texto
+        bg="blue",  # # se le asigna color fondo
         font=("Verdana", 14),
         anchor="center",
     ).pack(  # especifica las posiciones de los elementos
@@ -703,8 +704,8 @@ def MantenimientoEstudiantes():
     # Se digita la fecha de nacimiento del estudiante
     tk.Entry(
         newWindowE,
-        bg="yellow",  # asigna color a la ventana
-        fg="blue",  # asigna color a la ventana
+        bg="yellow",  # asigna color al fondo
+        fg="blue",  # asigna color al texto
         relief="sunken",
         justify="center",
         textvariable=FechaN
@@ -713,8 +714,8 @@ def MantenimientoEstudiantes():
     tk.Label(
         newWindowE,
         text="# Celular",
-        fg="white",  # Foreground
-        bg="blue",  # Background
+        fg="white",  #  # se le asigna color texto
+        bg="blue",  # color al fondo
         font=("Verdana", 14),
         anchor="center",
     ).pack(  # especifica las posiciones de los elementos
@@ -724,8 +725,8 @@ def MantenimientoEstudiantes():
     # Se digita el número de celular del estudiante
     tk.Entry(
         newWindowE,
-        bg="yellow",  # asigna color a la ventana
-        fg="blue",  # asigna color a la ventana
+        bg="yellow",  # asigna color al fondo
+        fg="blue",  # asigna color al texto
         relief="sunken",
         justify="center",
         textvariable=Celular
@@ -735,7 +736,7 @@ def MantenimientoEstudiantes():
         newWindowE,
         text="Guardar",
         font=("Arial", 16),  # cambia la letra y el tamaño
-        bg="lightblue",  # cambia color de linea de ventanas
+        bg="lightblue",  # cambia color del fondo
         fg="white",  # color texto
         command=GuardarDatosEstudiante,
         relief="flat",
@@ -749,7 +750,7 @@ def MantenimientoEstudiantes():
         newWindowE,
         text="Eliminar",
         font=("Arial", 16),  # cambia la letra y el tamaño
-        bg="lightblue",  # cambia color de linea de ventanas
+        bg="lightblue",  # cambia color de fondo
         fg="white",  # color texto
         command=EliminarDatosEstudiante,
         relief="flat",
@@ -763,7 +764,7 @@ def MantenimientoEstudiantes():
         newWindowE,
         text="Actualizar",
         font=("Arial", 16),  # cambia la letra y el tamaño
-        bg="lightblue",  # cambia color de linea de ventanas
+        bg="lightblue",  # cambia color de fondo
         fg="white",  # color texto
         command=ActualizarDatosEstudiante,
         relief="flat",
@@ -777,7 +778,7 @@ def MantenimientoEstudiantes():
         newWindowE,
         text="Salir",
         font=("Arial", 16),  # cambia la letra y el tamaño
-        bg="lightblue",  # cambia color de linea de ventanas
+        bg="lightblue",  # cambia color de fondo
         fg="white",  # color texto
         command=SalirVentanaEstudiantes,
         relief="flat",
@@ -792,7 +793,7 @@ def MantenimientoEstudiantes():
         newWindowE,
         text="Mostrar",
         font=("Arial", 16),  # cambia la letra y el tamaño
-        bg="lightblue",  # cambia color de linea de ventanas
+        bg="lightblue",  #color de fondo
         fg="white",  # color texto
         command=MostrarDatosEstudiante,
         relief="flat",
@@ -834,8 +835,8 @@ def MostrarMenuMantenimientos():
     tk.Label(  # el label etiqueta dónde podemos mostrar algún texto estático.
         newWindow,
         text="Menú Mantenimientos",
-        fg="white",  # Foreground
-        bg="blue",  # Background
+        fg="white",  #  # se le asigna color texto
+        bg="blue",  #  # color al fondo
         font=("Verdana", 14),
     ).pack(  # especifica las posiciones de los elementos
         fill=tk.BOTH,
@@ -860,7 +861,7 @@ def MostrarMenuMatricula():
     canMesesPorPagar = 0
     mesesPagar = []
     def CargaMesesPagados():
-        # Uso de matriz para cargar meses pagados de un estudiante desde archivo txt
+        # Uso de matriz para cargar meses pagados de un estudiante desde archivo txt, con excepciones
         tempMesesPagados = [[], [], []]
         # Lo asigna para mostrarlo en tkinter
         try:
@@ -876,12 +877,12 @@ def MostrarMenuMatricula():
                 if int(tupla[1]) == Year.get():
                     for tu in tupla:
                         tempMesesPagados[cont].append(tu)
-                        cont = cont + 1
+                        cont = cont + 1# contador de los meses
             # Cierra el fichero
             f.close()
-            return tempMesesPagados
+            return tempMesesPagados# retorna los meses pagados
 
-    # Convertir número de mes a texto
+    # se convierte número de mes a texto de la siguiente forma
     def ConvertirMes(mes):
         if mes == "1":
             return "Enero"
@@ -944,8 +945,8 @@ def MostrarMenuMatricula():
                 tk.Label(
                     nuevaVentana,
                     text="Meses por pagar",
-                    fg="white",  # Foreground
-                    bg="blue",  # Background
+                    fg="white",  #  # se le asigna color texto
+                    bg="blue",  # color de fondo
                     font=("Verdana", 12), width=15,
                     anchor="center",
                 ).place(
@@ -971,8 +972,8 @@ def MostrarMenuMatricula():
     ################Función calcula matricula###################################################
     def ValorAPagar():  # Función que se activa al presionar el botón Calcular Valor Matricula
 
-        global contadorEstudiantes
-        from tkinter import messagebox
+        global contadorEstudiantes # variable global
+        from tkinter import messagebox #para mostrar mensaje
         if cuotasIngresadas.get() != "":
             if int(cuotasIngresadas.get()) <= canmxpagar.get():
                 mesesPagados = int(cuotasIngresadas.get())  # Aqui se lee el número desde la entrada de texto
@@ -985,28 +986,28 @@ def MostrarMenuMatricula():
                 """
                 Se calcula el valor sin descuento, con descuento del 5% o del 10% según la cantidad de mesesPagados ingresadas
                 """
-                if mesesPagados >= 1 and mesesPagados <= 3:
-                    valorTotal = valorMensualidad * mesesPagados
+                if mesesPagados >= 1 and mesesPagados <= 3: # calcula valor total de meses pagados si es mayor o igual a 1 o menor o igual a 3
+                    valorTotal = valorMensualidad * mesesPagados #multiplica valor de mensualidad x meses pagados
                     msg = "Valor total a pagar: " + str(valorTotal)
                     montosdescuento.set(valorTotal)
-                elif mesesPagados >= 4 and mesesPagados <= 8:
-                    valorSinDescuento = valorMensualidad * mesesPagados
-                    valorDescuento = valorSinDescuento * (5 / 100)
-                    valorTotal = valorSinDescuento - valorDescuento
+                elif mesesPagados >= 4 and mesesPagados <= 8: #de igual forma  por si paga 4 meses o menos de 8 meses
+                    valorSinDescuento = valorMensualidad * mesesPagados #se multiplica
+                    valorDescuento = valorSinDescuento * (5 / 100) # se multiplica y divide 5 entre 100
+                    valorTotal = valorSinDescuento - valorDescuento #se le resta a valor sin descuento a valor descuento
                     msg = "Valor total a pagar: " + str(valorTotal)
                     montosdescuento.set(valorSinDescuento)
                     descuento.set(valorDescuento)
-                elif mesesPagados >= 9 and mesesPagados <= 12:
-                    valorSinDescuento = valorMensualidad * mesesPagados
-                    valorDescuento = valorSinDescuento * (10 / 100)
+                elif mesesPagados >= 9 and mesesPagados <= 12: #de igual forma si paga mayor de 9 meses y menos de 12
+                    valorSinDescuento = valorMensualidad * mesesPagados #se multiplica
+                    valorDescuento = valorSinDescuento * (10 / 100)# se multiplica y divide 10 entre 100
 
-                    valorTotal = valorSinDescuento - valorDescuento
-                    msg = "Valor total a pagar: " + str(valorTotal)
+                    valorTotal = valorSinDescuento - valorDescuento #se realiza resta a valor sin descuento a valor descuento
+                    msg = "Valor total a pagar: " + str(valorTotal) # muestra el valor totala  apagar
 
                     montosdescuento.set(valorSinDescuento)
                     descuento.set(valorDescuento)
 
-                else:
+                else: #sino da un error
                     messagebox.showerror(parent=nuevaVentana,
                                          message="Error de ingreso, solo se permiten valores de 1 a 12",
                                          title="Error de ingreso de datos")
@@ -1062,7 +1063,7 @@ def MostrarMenuMatricula():
 
     l1 = tk.Label(nuevaVentana, text="Ingrese la cantidad de mensualidades que desea cancelar", fg="white",
                   # Foreground
-                  bg="blue",  # Background
+                  bg="blue",  # color de fondo
                   font=("Verdana", 7),
                   anchor="center", )
     l1.place(
@@ -1072,15 +1073,15 @@ def MostrarMenuMatricula():
     l2 = tk.Label(nuevaVentana,
                   text="Recuerde que la mensualidad es de 11 meses y hay descuentos si paga por adelantado", fg="white",
                   # Foreground
-                  bg="blue",  # Background
+                  bg="blue",  # color de fondo
                   font=("Verdana", 7),
                   anchor="center", )
     l2.place(
         x=25, y=175,
     )
     #  Este elemento permite ingresar la cantidad de mensualidades a pagar en la ventana de matricula
-    cuotasIngresadas = tk.Entry(nuevaVentana, bg="yellow",  # asigna color a la ventana
-                                fg="blue",  # asigna color a la ventana
+    cuotasIngresadas = tk.Entry(nuevaVentana, bg="yellow",  # asigna color ade fondo
+                                fg="blue",  # asigna color a texto
                                 relief="sunken", width=10,
                                 justify="center", )
     cuotasIngresadas.place(
@@ -1088,15 +1089,15 @@ def MostrarMenuMatricula():
     )
     #  Este elemento permite calcular el valor a pagar en la ventana de matricula
     tk.Button(nuevaVentana, text="Calcular Valor Mensualidad", font=("Arial", 16),  # cambia la letra y el tamaño
-              bg="lightblue",  # cambia color de linea de ventanas
+              bg="lightblue",  # cambia color fondo
               fg="white",  # color texto,
               command=ValorAPagar,
               relief="flat", ).place(
         x=120, y=195
     )
     #  Este elemento permite mostrar el valor total a pagar en la matricula
-    laValorPagar = tk.Label(nuevaVentana, text="Valor total a pagar: 0", fg="white",  # Foreground
-                            bg="blue",  # Background
+    laValorPagar = tk.Label(nuevaVentana, text="Valor total a pagar: 0", fg="white",  # color texto
+                            bg="blue",  #color fondo
                             font=("Verdana", 12),
                             anchor="center", )
     laValorPagar.place(
@@ -1104,27 +1105,31 @@ def MostrarMenuMatricula():
     )
     #  Este botón permite salir de la ventana de matricula y volver a la ventana principal
     tk.Button(nuevaVentana, text="Salir", font=("Arial", 16),  # cambia la letra y el tamaño
-              bg="lightblue",  # cambia color de linea de ventanas
+              bg="lightblue",  # cambia color de fondo
               fg="white",  # color texto,
               command=nuevaVentana.withdraw,
               relief="flat").place(
         x=230, y=500
     )
     #  Este elemento permite mostrar todos los registros de estudiantes matriculados
-    laTotalMatriculas = tk.Label(nuevaVentana, text="Registro Matriculas", fg="white",  # Foreground
-                                 bg="blue",  # Background
+    laTotalMatriculas = tk.Label(nuevaVentana, text="Registro Matriculas", fg="white",  # color texto
+                                 bg="blue",  # color fondo
                                  font=("Verdana", 12),
                                  anchor="center", )
     laTotalMatriculas.place(
         x=175, y=25
     )
-    tk.Button(nuevaVentana, text="Procesar Pago", font=("Arial", 16),  #se crea bóton procesar cambia la letra y el tamaño
-              bg="lightblue",  # cambia color de linea de ventanas
+    tk.Button(nuevaVentana, text="Procesar", font=("Arial", 16),  #se crea bóton procesar cambia la letra y el tamaño
+              bg="lightblue",  # cambia color fondo
               fg="white",  # color texto,
               command=nuevaVentana.withdraw,
               relief="flat").place(
         x=230, y=400
+
     )
+
+    #laValorPagar=tk.Button
+
     ########################################
     """
     Se inicia el programa en la ventana principal
@@ -1135,8 +1140,8 @@ def MostrarMenuMatricula():
     tk.Label(
         nuevaVentana,
         text="Total sin descuento",
-        fg="white",  # Foreground
-        bg="blue",  # Background
+        fg="white",  # color texto
+        bg="blue",  # color fondo
         font=("Verdana", 12),
         anchor="center",
     ).place(
@@ -1144,8 +1149,8 @@ def MostrarMenuMatricula():
     )
     tk.Entry(
         nuevaVentana,
-        bg="yellow",  # asigna color a la ventana
-        fg="blue",  # asigna color a la ventana
+        bg="yellow",  # asigna color al fondo
+        fg="blue",  # asigna color texto
         relief="sunken", width=10,
         justify="center", state="readonly",
         textvariable=montosdescuento
@@ -1156,8 +1161,8 @@ def MostrarMenuMatricula():
     tk.Label(
         nuevaVentana,
         text="Descuento",
-        fg="white",  # Foreground
-        bg="blue",  # Background
+        fg="white",  # color texto
+        bg="blue",  # color fondo
         font=("Verdana", 12),
         anchor="center",
     ).place(
@@ -1165,8 +1170,8 @@ def MostrarMenuMatricula():
     )
     tk.Entry(
         nuevaVentana,
-        bg="yellow",  # asigna color a la ventana
-        fg="blue",  # asigna color a la ventana
+        bg="yellow",  # asigna color de fondo
+        fg="blue",  # asigna color a texto
         relief="sunken", width=10,
         justify="center", state="readonly",
         textvariable=descuento
@@ -1177,7 +1182,7 @@ def MostrarMenuMatricula():
     tk.Label(
         nuevaVentana, #se llama a la ventana donde esta
         text="Año Actual", #texto que lleva
-        fg="white",  # se le asigna color a las letras
+        fg="white",  # se le asigna color texto
         bg="blue",  # se le asigna color al fondo
         font=("Verdana", 12), #tamaño y estilo de letra
         anchor="center", # donde ira la posicion de la letra
@@ -1190,8 +1195,8 @@ def MostrarMenuMatricula():
     Year.set(date.strftime("%Y"))
     tk.Entry(
         nuevaVentana,
-        bg="yellow",  # asigna color a la ventana
-        fg="blue",  # asigna color a la ventana
+        bg="yellow",  # asigna color a fondo
+        fg="blue",  # asigna color a texto
         relief="sunken", width=10,
         justify="center", state="readonly",
         textvariable=Year
@@ -1202,8 +1207,8 @@ def MostrarMenuMatricula():
     tk.Label(
         nuevaVentana,
         text="Cedula",
-        fg="white",  # Foreground
-        bg="blue",  # Background
+        fg="white",  # color texto
+        bg="blue",  # color fondo
         font=("Verdana", 12),
         anchor="center",
     ).place(
@@ -1215,8 +1220,8 @@ def MostrarMenuMatricula():
     # Espacio para digitar el número de cédula del estudiante
     tk.Entry(
         nuevaVentana,
-        bg="yellow",  # asigna color a la ventana
-        fg="blue",  # asigna color a la ventana
+        bg="yellow",  # asigna color al fondo
+        fg="blue",  # asigna color al  texto
         relief="sunken", width=20, validatecommand=vcmd,
         justify="center",
         textvariable=CedulaMatri
@@ -1226,8 +1231,8 @@ def MostrarMenuMatricula():
     # Espacio para presentar el nombre del estudiante
     tk.Entry(
         nuevaVentana,
-        bg="yellow",  # asigna color a la ventana
-        fg="blue",  # asigna color a la ventana
+        bg="yellow",  # asigna color al fondo
+        fg="blue",  # asigna color al fondo
         relief="sunken", width=50,
         justify="center", state="readonly",
         textvariable=Nombre
@@ -1239,7 +1244,7 @@ def MostrarMenuMatricula():
 tk.Label(  # el label etiqueta dónde podemos mostrar algún texto estático, ene ste caso se llama la instancia del sigleton del nombre.
     app,
     text="Bienvenidos estimados usuarios al Sistema de Matrícula del " + centro_educativo.nombre,
-    fg="white",  ## se le asigna color a las letars
+    fg="white",  ## se le asigna color al texto
     bg="blue",  # # se le asigna color al fondo
     font=("Verdana", 14),
 ).pack(  # especifica las posiciones de los elementos
@@ -1263,4 +1268,3 @@ opcion.config(bg="blue", foreground="white",
               font=('Arial', 12))  # configuración que se visualizara en la ventana, con color, letra
 opcion.pack(pady=50)  # especifica las posiciones de los elementos
 app.mainloop() #Se inicia el programa en la ventana principal
-
